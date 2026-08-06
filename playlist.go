@@ -154,3 +154,35 @@ func Bruteforce(tsrange string, username, streamid string) (*url.URL, string, er
 	return nil, "", fmt.Errorf("no valid playlist found")
 
 }
+
+func fetchPlaylist(cfg config, info StreamInfo) (*url.URL, string, error) {
+
+	// yt-dlp already has the cloudfront url, fetch its content and return it
+	if strings.Contains(info.URL, ".cloudfront.net") {
+		url, err := url.Parse(info.URL)
+		if err != nil {
+			return nil, "", fmt.Errorf("failed to parse URL: %s", err)
+		}
+
+		content, err := getPlaylist(url.String())
+		if err != nil {
+			return nil, "", fmt.Errorf("failed to fetch playlist: %s", err)
+		}
+		return url, content, nil
+	}
+
+	if cfg.bruteforce != "" {
+		return Bruteforce(cfg.bruteforce, info.Username, info.StreamID)
+	}
+
+	playlistPath := playlistPath(info)
+	log.Println("trying all subdomains with playlist path", playlistPath)
+	return ResolvePlaylist(playlistPath)
+}
+
+func playlistPath(info StreamInfo) string {
+	if info.Thumbnail != "" {
+		return PathFromThumbnailURL(info.Thumbnail)
+	}
+	return ComputePlaylistPath(info.Username, info.StreamID, info.StartTime)
+}
