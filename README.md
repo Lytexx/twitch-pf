@@ -34,12 +34,12 @@ ffmpeg -protocol_whitelist file,https,tls,tcp -i rewritten-index-dvr.m3u8 -c cop
 
 | Flag | Description |
 |------|-------------|
-| `--clientid <id>` | Twitch API client ID for stream info extraction |
-| `--clientsecret <secret>` | Twitch API client secret for stream info extraction |
+| `--clientid <id>` | Twitch API client ID for info extraction |
+| `--clientsecret <secret>` | Twitch API client secret for info extraction |
 | `--username <name>` | Streamers username |
 | `--streamid <id>` | Stream ID |
 | `--starttime <unix>` | Stream start time as unix timestamp |
-| `--bruteforce <min-max>` | Try playlist paths for every start time in the given unix timestamp range (example: 1784099100-1784099200) |
+| `--bruteforce <min-max>` | Try playlist paths for every start time in the given unix timestamp range (example: 1784000100-1784000200) |
 | `--ignoreconfig` | Prevent the config file from being loaded |
 
 ## Config
