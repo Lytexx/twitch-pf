@@ -62,3 +62,7 @@ flags take precedence over the config file.
 ### Dependencies
 
 [YT-DLP](https://github.com/yt-dlp/yt-dlp) is required if no twitch api access is provided
+
+### Caveats
+ - Streamers can choose to have specific audio tracks only appear live, these won't be present in DVR playlists: https://obsproject.com/kb/twitch-vod-track-guide
+ - DVR playlists can be used even if a streamer has VOD disabled, however if they have VOD enabled and then delete a vod, then that vod will have their DVR playlist deleted as well.
